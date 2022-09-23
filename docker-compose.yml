@@ -5,10 +5,10 @@ services:
     container_name: sample-laravel-app
     build: ./docker/php
     volumes:
-    - ./src:/var/www
-    - vendor:/var/www/laravel/vendor
-    - node_modules:/var/www/laravel/node_modules
-    - storage:/var/www/laravel/storage
+      - ./src:/var/www
+      - vendor:/var/www/laravel/vendor
+      - node_modules:/var/www/laravel/node_modules
+      - storage:/var/www/laravel/storage
     environment:
       TZ: Asia/Tokyo
 
@@ -18,17 +18,26 @@ services:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     ports:
-    - 8000:80
+      - 8000:80
     volumes:
-    - ./src:/var/www
+      - ./src:/var/www
     depends_on:
-    - app
+      - app
 
   db:
     build: ./docker/mysql
     container_name: sample-laravel-db
     volumes:
       - mysql:/var/lib/mysql
+
+  mail:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+    - "8025:8025"
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /tmp
 
 volumes:
   vendor:
