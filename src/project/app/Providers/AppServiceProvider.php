@@ -16,10 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('encrypter', function ($app) {
-            $config = $app->make('config')->get('app');
-            return new BlowfishEncrypter($this->parseKey($config));
-        });
+       
     }
 
     protected function parseKey(array $config)
