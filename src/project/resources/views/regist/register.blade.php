@@ -10,19 +10,27 @@
 </head>
 
 <body>
+    @if(count($errors)>0)
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     <form name="registform" action="/register" method="post" id="registform">
         {{csrf_field()}}
         <dl>
             <dt>名前：</dt>
             <dd>
-                <input type="text" name="name" size="30">
+                <input type="text" name="name" size="30" value="{{ old('name') }}">
                 <span>{{$errors->first('name')}}</span>
             </dd>
         </dl>
         <dl>
             <dt>メールアドレス：</dt>
             <dd>
-                <input type="text" name="email" size="30">
+                <input type="text" name="email" size="30" value="{{ old('email') }}">
                 <span>{{$errors->first('email')}}</span>
             </dd>
         </dl>
