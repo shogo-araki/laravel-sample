@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\DataProvider\PublisherRepositoryInterface;
+use App\Domain\Repository\PublisherRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            PublisherRepositoryInterface::class,
+            PublisherRepository::class
+        );
     }
 
     /**

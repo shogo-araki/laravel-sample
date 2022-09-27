@@ -1,5 +1,7 @@
 <?php
 
+use App\DataProvider\Eloquent\Publisher;
+use App\Http\Controllers\PublisherAction;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
