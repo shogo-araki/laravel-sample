@@ -22,3 +22,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::group(['middleware'=>'api'], function($router){
+    Route::post('/users/login', 'App\Http\Controllers\User\LoginAction::class');
+    Route::post('/users', 'App\Http\Controllers\User\RetrieveAction::class')->middleware('auth:jwt');
+});
