@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'user_token',
+            'input_key' => 't',
+            'storage_key' => 'token',
+            'hash' => true,
+        ],
     ],
 
     /*
@@ -60,15 +68,24 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'users' => [
+            'driver' => 'cache_eloquent',
+            'model' => App\User::class,
+        ],
+
+        'user_token' => [
+            'driver' => 'user_token'
+        ]
     ],
 
     /*
