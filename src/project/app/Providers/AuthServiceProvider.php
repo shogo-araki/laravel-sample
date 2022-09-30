@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Gate\UserAccess;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Psr\Log\LoggerInterface;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,10 +23,15 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(GateContract $gate, LoggerInterface $logger)
     {
         $this->registerPolicies();
+        $gate->define('user-access', new UserAccess());
 
-        //
+        $gate->before(function ($user, $ability) use ($logger) {
+            $logger->info($ability, [
+                'user_id' => $user->getAuthIdentifer(),
+            ]);
+        });
     }
 }
