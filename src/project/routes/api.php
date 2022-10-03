@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/import-orders', function (Request $request) {
+    $json = $request->getContent();
+    file_put_contents('/tmp/orders', $json);
+
+    return response('ok');
+});

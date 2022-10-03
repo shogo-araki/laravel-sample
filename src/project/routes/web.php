@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Console\Kernel;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +30,6 @@ Route::get('/login', [App\Http\Controllers\LoginController::class, 'index'])->mi
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'authenticate'])->middleware('guest');
 Route::get('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
+Route::get('/hello', function(){
+    Artisan::call('hello:class');
+});

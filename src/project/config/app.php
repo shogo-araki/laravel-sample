@@ -162,6 +162,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        \App\Providers\BatchServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
