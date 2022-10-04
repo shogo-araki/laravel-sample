@@ -21,31 +21,31 @@ class BatchServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            SendOrdersUseCase::class,
-            function () {
-                $service = $this->app->make(ExportOrderService::class);
-                $guzzle = new Client(
-                    [
-                        'handler' => tap(
-                            HandlerStack::create(),
-                            function (HandlerStack $v) {
-                                $logger = app(LogManager::class);
-                                $v->push(
-                                    Middleware::log(
-                                        $logger->driver('send-orders'),
-                                        new MessagefromFormatter(
-                                            ">>>\n{req_headers}\n<<<\n{res_headers}\n\n{res_body}"
-                                        )
-                                    )
-                                );
-                            }
-                        )
-                    ]
-                );
-                return new SendOrdersUseCase($service, $guzzle);
-            }
-        );
+        // $this->app->bind(
+        //     SendOrdersUseCase::class,
+        //     function () {
+        //         $service = $this->app->make(ExportOrderService::class);
+        //         $guzzle = new Client(
+        //             [
+        //                 'handler' => tap(
+        //                     HandlerStack::create(),
+        //                     function (HandlerStack $v) {
+        //                         $logger = app(LogManager::class);
+        //                         $v->push(
+        //                             Middleware::log(
+        //                                 $logger->driver('send-orders'),
+        //                                 new MessagefromFormatter(
+        //                                     ">>>\n{req_headers}\n<<<\n{res_headers}\n\n{res_body}"
+        //                                 )
+        //                             )
+        //                         );
+        //                     }
+        //                 )
+        //             ]
+        //         );
+        //         return new SendOrdersUseCase($service, $guzzle);
+        //     }
+        // );
     }
 
     /**
